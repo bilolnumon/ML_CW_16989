@@ -39,7 +39,7 @@ def get_numeric_cats(df, target_col):
 def build_preprocessor(numeric_cols, categorical_cols, impute_strategy, encode_type, scale):
     transformers = []
     transformers.append(('num_imputer', SimpleImputer(strategy=impute_strategy), numeric_cols))
-    if encode_type == "OneHot":
+    if encode_type == "Numeric":
         ohe = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
         transformers.append(('cat_enc', ohe, categorical_cols))
     elif encode_type == "Label":
