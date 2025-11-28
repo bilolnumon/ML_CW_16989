@@ -70,9 +70,9 @@ def show_confusion_matrix(y_true, y_pred, classes, title):
     st.pyplot(plt.gcf())
     plt.close()
 
-# Sidebar navigation
+# Sidebar navigation (REMOVED DOWNLOAD PAGE)
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Data", "EDA", "Preprocessing", "Train & Tune", "Inference", "Evaluation", "Download"])
+page = st.sidebar.radio("Go to", ["Data", "EDA", "Preprocessing", "Train & Tune", "Inference", "Evaluation"])
 
 # App state
 if 'df' not in st.session_state:
@@ -88,20 +88,15 @@ if 'X_train' not in st.session_state:
 
 # Page: Data
 if page == "Data":
-    st.header("Data Upload & Preview")
-    uploaded = st.file_uploader("Upload CSV (or leave blank to use local file 'your_dataset.csv')", type=["csv"])
-    if uploaded:
-        df = load_csv(uploaded)
+    st.header("Data Preview")
+
+    try:
+        df = load_csv("ObesityDataSet_raw_and_data_sinthetic.csv")
         st.session_state.df = df
-        st.success("Loaded uploaded CSV")
-    else:
-        try:
-            df = load_csv("your_dataset.csv")
-            st.session_state.df = df
-            st.info("Loaded 'your_dataset.csv' from working directory")
-        except Exception:
-            st.warning("No dataset found in working directory. Please upload a CSV.")
-            df = None
+        st.success("Loaded dataset from ObesityDataSet_raw_and_data_sinthetic.csv in this folder.")
+    except:
+        st.error("ObesityDataSet_raw_and_data_sinthetic.csv NOT FOUND in this folder.")
+        st.stop()
 
     if st.session_state.df is not None:
         st.subheader("Dataset preview")
@@ -114,40 +109,64 @@ if page == "Data":
 elif page == "EDA":
     st.header("Exploratory Data Analysis")
     df = st.session_state.df
+
     if df is None:
-        st.warning("Upload or load dataset first on Data page.")
+        st.warning("Upload or load dataset first on the Data page.")
+    
     else:
         st.subheader("Statistical Summary")
         st.write(df.describe(include='all'))
-        st.subheader("Correlation Matrix (numeric features)")
+        
         numeric_cols, categorical_cols = get_numeric_cats(df, st.session_state.target)
+
+        st.subheader("Correlation Matrix (numeric features)")
         if len(numeric_cols) > 0:
-            plt.figure(figsize=(10,8))
+            plt.figure(figsize=(10, 8))
             sns.heatmap(df[numeric_cols].corr(), annot=True, fmt=".2f", cmap='coolwarm')
-            st.pyplot(plt.gcf()); plt.close()
+            st.pyplot(plt.gcf())
+            plt.close()
         else:
             st.write("No numeric columns detected.")
 
-        st.subheader("Histograms")
-        n = st.slider("Max numeric columns to plot", 1, min(12, len(numeric_cols)), min(6, max(1, len(numeric_cols))))
-        if numeric_cols:
-            df[numeric_cols[:n]].hist(figsize=(12,6))
-            st.pyplot(plt.gcf()); plt.close()
 
+        st.subheader("Histograms (Numeric Columns)")
+        if numeric_cols:
+            max_cols = min(12, len(numeric_cols))
+            n = st.slider(
+                "Max numeric columns to plot",
+                min_value=1,
+                max_value=max_cols,
+                value=min(6, max(1, len(numeric_cols)))
+            )
+            plt.figure(figsize=(12, 6))
+            df[numeric_cols[:n]].hist(figsize=(12, 6))
+            st.pyplot(plt.gcf())
+            plt.close()
+        else:
+            st.info("No numeric columns available for histograms.")
+
+        
         st.subheader("Scatter: Height vs Weight (if present)")
         if 'Height' in df.columns and 'Weight' in df.columns:
-            plt.figure(figsize=(8,6))
-            sns.scatterplot(x='Height', y='Weight', hue=st.session_state.target if st.session_state.target in df.columns else None, data=df)
-            st.pyplot(plt.gcf()); plt.close()
+            plt.figure(figsize=(8, 6))
+            sns.scatterplot(
+                x='Height',
+                y='Weight',
+                hue=st.session_state.target if st.session_state.target in df.columns else None,
+                data=df
+            )
+            st.pyplot(plt.gcf())
+            plt.close()
         else:
             st.info("Height/Weight not found in dataset.")
+
 
 # Page: Preprocessing
 elif page == "Preprocessing":
     st.header("Preprocessing choices")
     df = st.session_state.df
     if df is None:
-        st.warning("Upload dataset first.")
+        st.warning("Load dataset first.")
     else:
         st.write("Detected columns:", df.columns.tolist())
         target = st.text_input("Target column name", value=st.session_state.target)
@@ -157,10 +176,9 @@ elif page == "Preprocessing":
         st.write("Numeric columns:", numeric_cols)
         st.write("Categorical columns:", categorical_cols)
 
-        impute_strategy = st.selectbox("Numeric imputation strategy", options=["mean", "median"], index=0)
-        encode_type = st.selectbox("Categorical encoding", options=["OneHot", "Label"], index=0)
-        scale_opt = st.checkbox("Apply Standard Scaling to numeric features", value=True)
-
+        impute_strategy = st.selectbox("Numeric imputation strategy", ["mean", "median"])
+        encode_type = st.selectbox("Categorical encoding", ["OneHot", "Label"])
+        scale_opt = st.checkbox("Apply Standard Scaling", True)
         if st.button("Apply preprocessing and split data"):
             df_clean = df.copy()
             df_clean.columns = df_clean.columns.str.strip()
@@ -401,8 +419,6 @@ elif page == "Inference":
                 else:
                     st.write("Status: Obese")
 
-
-
 # Page: Evaluation
 elif page == "Evaluation":
     st.header("Evaluation & Comparison")
@@ -422,21 +438,9 @@ elif page == "Evaluation":
             st.text(classification_report(y_test, y_pred))
             st.write("Confusion Matrix:")
             cm = confusion_matrix(y_test, y_pred)
-            fig, ax = plt.subplots(figsize=(6,4))
+            fig, ax = plt.subplots(figsize=(4,2))
             sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax)
             st.pyplot(fig)
         res_df = pd.DataFrame(list(results.items()), columns=['Model', 'Test Accuracy'])
         st.write("### Summary")
         st.dataframe(res_df)
-
-# Page: Download
-elif page == "Download":
-    st.header("Download trained model")
-    if not st.session_state.models:
-        st.warning("Train models first.")
-    else:
-        model_name = st.selectbox("Choose model to download", options=list(st.session_state.models.keys()))
-        model_obj = st.session_state.models[model_name]
-        if st.button("Save model to file (joblib)"):
-            joblib.dump(model_obj, f"{model_name}_model.joblib")
-            st.success(f"Saved as {model_name}_model.joblib in working directory.")
