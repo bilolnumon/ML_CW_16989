@@ -12,6 +12,7 @@ It demonstrates the complete machine learning workflow:
   The dataset is sourced from UCI Machine Learning Repository: Estimation of Obesity Levels.
 
 
+
 Table of Contents:
   
   Dataset
@@ -37,6 +38,7 @@ Table of Contents:
   Dataset
 
 
+
 The dataset contains features related to:
 
 Physical Condition: Height, Weight, BMI, Physical Activity Frequency (FAF), Time Using Electronic Devices (TUE), etc.
@@ -58,6 +60,7 @@ Target Variable: Obesity level (NObeyesdad) with classes such as:
   Obesity_Type_II, 
   
   Obesity_Type_III.
+
 
 
 The dataset contains both raw and synthetic data to improve model generalization.
@@ -93,32 +96,53 @@ ML_CW_16989/
 └── .gitignore
 
 
+
 Requirements
+  
   Python >= 3.8
+  
   Pandas
+  
   Numpy
+  
   Scikit-learn
+  
   Matplotlib
+  
   Seaborn
+  
   Streamlit
+  
   Joblib
 
 
+
 All required packages are listed in requirements.txt. Install them using:
+
 pip install -r requirements.txt
 
 
+
 Setup Instructions
+
 If you do not have Python in your computer, it is required
+
 Install every library inside requirements.txt
+
 Install Jupyter and Python on VSCode
+
 Start running codes one by one 
 
 
+
 VSCode obesity.ipynb includes:
+  
   Load Dataset
+  
     Load CSV data into a Pandas DataFrame.
+    
     Inspect the shape, columns, and summary statistics.
+  
   Exploratory Data Analysis (EDA)
     Statistical summary for numeric and categorical features.
     Correlation matrix heatmap for numeric features.
