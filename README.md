@@ -4,38 +4,39 @@ Project Overview
 
 This project predicts obesity levels based on individuals’ eating habits and physical condition. 
 It demonstrates the complete machine learning workflow: 
-  data exploration, 
-  preprocessing,
-  model training, 
-  evaluation, 
-  deployment using a Streamlit web application.
-  The dataset is sourced from UCI Machine Learning Repository: Estimation of Obesity Levels.
+  
+    data exploration
+    preprocessing
+    model training 
+    evaluation
+    deployment using a Streamlit web application
+    The dataset is sourced from UCI Machine Learning Repository: Estimation of Obesity Levels.
 
 
 
 Table of Contents:
   
-  Dataset
+    Dataset
   
-  Project Structure
+    Project Structure
   
-  Requirements
+    Requirements
   
-  Setup Instructions
+    Setup Instructions
   
-  Jupyter Notebook Walkthrough
+    Jupyter Notebook Walkthrough
   
-  Streamlit Application
+    Streamlit Application
   
-  Models
+    Models
   
-  Evaluation
+    Evaluation
   
-  Deployment
+    Deployment
   
-  Reproducibility
+    Reproducibility
   
-  Dataset
+    Dataset
 
 
 
@@ -47,19 +48,13 @@ Eating Habits: Number of meals per day (NCP), Consumption of High Calorie Foods 
 
 Target Variable: Obesity level (NObeyesdad) with classes such as:
   
-  Insufficient_Weight, 
-  
-  Normal_Weight, 
-  
-  Overweight_Level_I, 
-  
-  Overweight_Level_II, 
-  
-  Obesity_Type_I, 
-  
-  Obesity_Type_II, 
-  
-  Obesity_Type_III.
+    Insufficient_Weight, 
+    Normal_Weight, 
+    Overweight_Level_I, 
+    Overweight_Level_II, 
+    Obesity_Type_I, 
+    Obesity_Type_II, 
+    Obesity_Type_III.
 
 
 
@@ -140,26 +135,32 @@ VSCode obesity.ipynb includes:
   Load Dataset
   
     Load CSV data into a Pandas DataFrame.
-    
     Inspect the shape, columns, and summary statistics.
   
   Exploratory Data Analysis (EDA)
+    
     Statistical summary for numeric and categorical features.
     Correlation matrix heatmap for numeric features.
     Boxplots, scatter plots, and histograms for feature visualization.
+  
   Data Preparation
+    
     Remove duplicates and handle missing values.
     Detect and remove outliers using IQR method.
     Ensure no negative values for numeric features.
     Feature engineering: BMI calculation.
     Dataset split into training, validation, and test sets (stratified).
+  
   Model Training
+  
     Train at least three models:
       Logistic Regression
       Random Forest
       K-Nearest Neighbors (KNN)
     Hyperparameter tuning using GridSearchCV.
+  
   Model Evaluation
+  
     Accuracy, classification report, and confusion matrices for each model.
     Comparison of models on the test set.
   
