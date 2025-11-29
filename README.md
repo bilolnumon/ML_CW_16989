@@ -180,12 +180,14 @@ Evaluation
       Fully interactive Streamlit app.
       Users can explore data, apply preprocessing, train models, perform inference, and evaluate models.
       Supports multi-page navigation for clear separation of workflow.
-  Reproducibility
-    All code is reproducible with requirements.txt.
-    Dataset included in data/ folder.
-    Random seeds used for train-test splits and model training.
+    
+    Reproducibility
+      All code is reproducible with requirements.txt.
+      Dataset included in data/ folder.
+      Random seeds used for train-test splits and model training.
 
 
 Version Control
-  Weekly commits maintained for all notebook and app development.
-  Git repository contains history of preprocessing, model tuning, and app updates.
+    
+    Weekly commits maintained for all notebook and app development.
+    Git repository contains history of preprocessing, model tuning, and app updates.
