@@ -18,20 +18,13 @@ Table of Contents:
   Project Structure
   Requirements
   Setup Instructions
-  
   Jupyter Notebook Walkthrough
-  
   Streamlit Application
-  
   Models
-  
   Evaluation
-  
   Deployment
-  
   Reproducibility
-  
-  Dataset
+  ataset
 
 
 The dataset contains features related to:
