@@ -112,11 +112,11 @@ if page == "Data":
         st.subheader("Original Dataset Preview")
         show_df_info(st.session_state.df)
 
-        # --- Check for duplicates immediately ---
+        # Check for duplicates immediately
         dup_count = df.duplicated().sum()
         st.write(f"Number of duplicate rows in original dataset: {dup_count}")
 
-        # --- Drop duplicates immediately ---
+        # Drop duplicates immediately
         if dup_count > 0:
             df = df.drop_duplicates()
             st.write(f"Dropped {dup_count} duplicate rows. New shape: {df.shape}")
@@ -124,7 +124,7 @@ if page == "Data":
         # Save cleaned df to session state for other pages
         st.session_state.df_cleaned = df
 
-        # --- Round Age to nearest integer ---
+        # Round Age to nearest integer
         if 'Age' in df.columns:
             df['Age'] = df['Age'].round().astype(int)
 
@@ -349,7 +349,6 @@ elif page == "Train & Tune":
 elif page == "Inference":
     st.header("Single-sample Inference")
 
-    # SAFETY CHECKS
     if st.session_state.df is None:
         st.warning("Load dataset first (Data page).")
         st.stop()
@@ -368,7 +367,7 @@ elif page == "Inference":
 
     # Input widgets
     for i, col in enumerate(feat_cols):
-        widget_key = f"{col}_input_{i}"  # unique key
+        widget_key = f"{col}_input_{i}"
 
         if df[col].dtype in ['int64', 'float64']:
             if col.lower() == "age":
@@ -394,7 +393,7 @@ elif page == "Inference":
         preproc = st.session_state.preprocessor
 
         # Preprocessing
-        if preproc[0] == 'label':  # Label encoding path
+        if preproc[0] == 'label':
             encoders = preproc[1]
             scaler = preproc[2]
 
@@ -410,7 +409,7 @@ elif page == "Inference":
 
             X_in = sample_df.values
 
-        else:  # ColumnTransformer path
+        else:
             preproc_obj, scaler_obj, num_cols, cat_cols = preproc
             X_in = preproc_obj.transform(sample_df)
             if scaler_obj is not None:
