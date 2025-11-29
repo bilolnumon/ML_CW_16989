@@ -17,44 +17,79 @@ Table of Contents:
   Dataset
   
   Project Structure
+  
   Requirements
+  
   Setup Instructions
+  
   Jupyter Notebook Walkthrough
+  
   Streamlit Application
+  
   Models
+  
   Evaluation
+  
   Deployment
+  
   Reproducibility
-  ataset
+  
+  Dataset
 
 
 The dataset contains features related to:
+
 Physical Condition: Height, Weight, BMI, Physical Activity Frequency (FAF), Time Using Electronic Devices (TUE), etc.
+
 Eating Habits: Number of meals per day (NCP), Consumption of High Calorie Foods (CH2O), etc.
+
 Target Variable: Obesity level (NObeyesdad) with classes such as:
+  
   Insufficient_Weight, 
+  
   Normal_Weight, 
+  
   Overweight_Level_I, 
+  
   Overweight_Level_II, 
+  
   Obesity_Type_I, 
+  
   Obesity_Type_II, 
+  
   Obesity_Type_III.
+
+
 The dataset contains both raw and synthetic data to improve model generalization.
 
 Project Structure
+
 ML_CW_16989/
+
 │
+
 ├── data/
+
 │   └── ObesityDataSet_raw_and_data_sinthetic.csv
+
 │
+
 ├── notebooks/
+
 │   └── obesity.ipynb           # Practical part: Data Load, EDA, Preparition, Model Training and Evolution
+
 │
+
 ├── streamlit_app/
+
 │   └── obesity_app.py          # Multi-page Streamlit app for exploration, preprocessing, inference, and evaluation
+
 │
+
 ├── requirements.txt            # All dependencies
+
 ├── README.md
+
 └── .gitignore
 
 
