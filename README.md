@@ -15,6 +15,7 @@ It demonstrates the complete machine learning workflow:
 Table of Contents:
   
   Dataset
+  
   Project Structure
   Requirements
   Setup Instructions
