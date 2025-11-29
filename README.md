@@ -13,16 +13,27 @@ It demonstrates the complete machine learning workflow:
 
 
 Table of Contents:
+  
   Dataset
+  
   Project Structure
+  
   Requirements
+  
   Setup Instructions
+  
   Jupyter Notebook Walkthrough
+  
   Streamlit Application
+  
   Models
+  
   Evaluation
+  
   Deployment
+  
   Reproducibility
+  
   Dataset
 
 
